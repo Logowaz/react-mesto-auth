@@ -202,7 +202,7 @@ function App() {
     .then((res) => {
         handleCheckStatusLoginSuccsess();
         // setIsStatusLoginSuccsess(true);
-        navigate('/sign-in', { replace: true })
+        navigate('/signin', { replace: true })
     })
     .catch((err) => {
         handleCheckStatusLoginFail(err);
@@ -233,8 +233,8 @@ function App() {
         <Header loggedIn={loggedIn} userMail={userMail} singOut={singOut}/>
 
         <Routes>
-          <Route path="/sign-up" element={<Register handleCheckRegister={handleCheckRegister}/>} />
-          <Route path="/sign-in" element={<Login handleCheckLogin={handleCheckLogin}/>} />
+          <Route path="/signup" element={<Register handleCheckRegister={handleCheckRegister}/>} />
+          <Route path="/signin" element={<Login handleCheckLogin={handleCheckLogin}/>} />
           <Route  path="/" element={<ProtectedRoute element={Main} loggedIn={loggedIn} 
           onEditProfile={handleEditProfilePopup}
           onAddPlace={handleAddPlacePopupOpen}
@@ -244,7 +244,7 @@ function App() {
           onCardDelete={handleConfirmPopupOpen}
           cards={cards}
           />} />
-          <Route path="/" element={loggedIn ? <Navigate to ="/" /> : <Navigate to="/sign-in" replace/>}/>
+          <Route path="/" element={loggedIn ? <Navigate to ="/" /> : <Navigate to="/signin" replace/>}/>
           <Route path="*" element={<PageNotFound />}/>
         </Routes>
         

@@ -57,7 +57,7 @@ function AuthTemplate({name, title, textButton, handleCheckRegister, handleCheck
         <button type="submit" className="auth__submit">{textButton}</button>
       </form>
       {name === 'register' && (
-      <Link to="/sign-in" className="button__sign-in">Уже зарегистрированы? Войти</Link>
+      <Link to="/signin" className="button__sign-in">Уже зарегистрированы? Войти</Link>
       )}
     </div>
   )

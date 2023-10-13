@@ -1,4 +1,4 @@
-# mesto-react-auth
+# react-mesto-auth
 
 **Интро**
 
@@ -19,5 +19,5 @@
 * Инструмент для сборки - Vite
 * HTML5
 * CSS3
-* [Ссылка на GitHub Pages](https://logowaz.github.io/mesto-react/)
+* [Ссылка на GitHub Pages](https://logowaz.github.io/react-mesto-auth/)
 
