@@ -29,8 +29,6 @@ function App() {
   const [isImagePopupOpen, setIsImagePopupOpen] = React.useState(false);
   const [currentUser, setCurrentUser] = useState({});
   const [cards, setCards] = React.useState([]);
-  const [isStatusLoginSuccsess, setIsStatusLoginSuccsess] = useState(false);
-  const [isStatusLoginFail, setIsStatusLoginFail] = useState(false);
   const [loggedIn, setLoggedIn] = useState(false);
   const [userMail, setUserMail] = useState('');
   const [toolTipData, setToolTipData] = useState({ status: false, message: '', image: '' });
@@ -95,8 +93,6 @@ function App() {
     setIsAddPlacePopupOpen(false);
     setIsConfirmDeletePopupOpen(false);
     setIsImagePopupOpen(false);
-    setIsStatusLoginSuccsess(false);
-    setIsStatusLoginFail(false);
     setToolTipData({ status: false, message: '', image: '' });
   }
 
@@ -104,16 +100,6 @@ function App() {
     
     setSelectedCard(card);
     setIsImagePopupOpen(true);
-  }
-
-  function handleAddPlaceSubmit(card) {
-    api.addCard(card).then((newCard) => {
-      setCards([newCard, ...cards]);
-      closeAllPopups();
-    })
-    .catch((err) => {
-      console.log(err);
-    });
   }
 
   function handleCardLike(card) {
