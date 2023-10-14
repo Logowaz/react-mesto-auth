@@ -80,15 +80,16 @@ function App() {
   }
 
   function handleCheckStatusLoginSuccsess() {
-    setToolTipData({ status: true, message: 'Вы успешно зарегистрировались!', image: 'successPicture' });
+    setToolTipData({ status: true, message: 'Вы успешно зарегистрировались!', image: 'successLogo' });
   }
 
 
   function handleCheckStatusLoginFail() {
-    setToolTipData({ status: true, message: 'Что-то пошло не так! Попробуйте еще раз.' , image: 'errorPicture' });
+    setToolTipData({ status: true, message: 'Что-то пошло не так! Попробуйте еще раз.' , image: 'errorLogo' });
   }
 
   function closeAllPopups() {
+    // debugger
     setIsEditAvatarPopupOpen(false);
     setIsEditProfilePopupOpen(false);
     setIsAddPlacePopupOpen(false);
@@ -284,8 +285,8 @@ function App() {
         />
 
         <InfoTooltip
-          name={toolTipData.image === 'successPicture' ? 'successMessage' : 'errorMessage'}
-          logo={toolTipData.image === 'successPicture' ? successPicture : failPicture}
+          name={toolTipData.message === 'Вы успешно зарегистрировались!' ? 'successMessage' : 'errorMessage'}
+          logo={toolTipData.image !== '' ? (toolTipData.image === 'successLogo' ? successPicture : failPicture) : null}
           textMessage={toolTipData.message}
           isOpen={toolTipData.status}
           onClose={closeAllPopups}
