@@ -12,15 +12,12 @@ import ConfirmDeletePopup from './ConfirmDeletePopup.jsx';
 import EditProfilePopup from './EditProfilePopup.jsx';
 import EditAvatarPopup from './EditAvatarPopup.jsx';
 import AddPlacePopup from './AddPlacePopup.jsx';
-import * as Auth from './Auth.jsx';
+import * as Auth from '../utils/Auth.js';
 import Login from "./Login.jsx";
 import Register from "./Register.jsx";
 import ProtectedRoute from './ProtectedRoute.jsx'
 import PageNotFound from "./PageNotFound.jsx";
 import InfoTooltip from "./InfoTooltip.jsx"
-
-
-
 
 function App() {
 
@@ -35,30 +32,47 @@ function App() {
   const [isStatusLoginSuccsess, setIsStatusLoginSuccsess] = useState(false);
   const [isStatusLoginFail, setIsStatusLoginFail] = useState(false);
   const [loggedIn, setLoggedIn] = useState(false);
+  const [userMail, setUserMail] = useState('');
+
+
+  const [toolTipData, setToolTipData] = useState({ status: false, message: '', image: '' });
+
+  // function handleCheckStatusLoginSuccess() {
+  //   setToolTipData({ status: true, message: 'Вы успешно зарегистрировались!' });
+  // }
+
+  // function handleCheckStatusLoginFail() {
+  //   setToolTipData({ status: true, message: 'Что-то пошло не так! Попробуйте еще раз.' });
+  // }
+
+
+
  
   const navigate = useNavigate();
 
-
+  React.useEffect(() => {
+    if (loggedIn) { 
+      api.getUserInfo()
+        .then((userData) => {
+          setCurrentUser(userData);
+        })
+        .catch((err) => {
+          console.log(err);
+        });
+    }
+  }, [loggedIn]);
 
   React.useEffect(() => {
-    api.getUserInfo()
-      .then((userData) => {
-        setCurrentUser(userData);
-      })
-      .catch((err) => {
-        console.log(err);
-      });
-  }, []);
-
-  React.useEffect(() => {
-    api.getInitialCards()
-      .then((cards) => {
-        setCards(cards);
-      })
-      .catch((err) => {
-        console.log(err);
-      });
-  }, []);
+    if (loggedIn) { 
+      api.getInitialCards()
+        .then((cards) => {
+          setCards(cards);
+        })
+        .catch((err) => {
+          console.log(err);
+        });
+    }
+  }, [loggedIn]);
 
 
   function handleEditProfilePopup () {
@@ -79,11 +93,12 @@ function App() {
   }
 
   function handleCheckStatusLoginSuccsess() {
-    setIsStatusLoginSuccsess(true);
+    setToolTipData({ status: true, message: 'Вы успешно зарегистрировались!', image: 'successPicture' });
   }
 
+
   function handleCheckStatusLoginFail() {
-    setIsStatusLoginFail(true);
+    setToolTipData({ status: true, message: 'Что-то пошло не так! Попробуйте еще раз.' , image: 'errorPicture' });
   }
 
   function closeAllPopups() {
@@ -94,6 +109,7 @@ function App() {
     setIsImagePopupOpen(false);
     setIsStatusLoginSuccsess(false);
     setIsStatusLoginFail(false);
+    setToolTipData({ status: false, message: '', image: '' });
   }
 
   function handleCardClick(card) {
@@ -166,8 +182,6 @@ function App() {
     });
   }
 
-  const [userMail, setUserMail] = useState('');
-  
   const tokenCheck = () => {
     const jwt = localStorage.getItem('jwt')
     if (jwt) {
@@ -201,7 +215,6 @@ function App() {
     Auth.register({password, email})
     .then((res) => {
         handleCheckStatusLoginSuccsess();
-        // setIsStatusLoginSuccsess(true);
         navigate('/signin', { replace: true })
     })
     .catch((err) => {
@@ -209,7 +222,6 @@ function App() {
         console.log(`ошибка ${err}`);
     })
   }
-
 
   function handleCheckLogin(password, email) {
     Auth.authorize({password, email})
@@ -284,19 +296,12 @@ function App() {
           onClose={closeAllPopups} 
         />
 
-        <InfoTooltip name={'successMessage'}  
-          logo={successPicture} 
-          textMessage={"Вы успешно зарегистрировались!"} 
-          isOpen={isStatusLoginSuccsess} 
-          onClose={closeAllPopups} 
-        />
-
-        <InfoTooltip 
-          name={'errorMessage'} 
-          logo={failPicture} 
-          textMessage={"Что-то пошло не так! Попробуйте еще раз."} 
-          isOpen={isStatusLoginFail} 
-          onClose={closeAllPopups} 
+        <InfoTooltip
+          name={toolTipData.image === 'successPicture' ? 'successMessage' : 'errorMessage'}
+          logo={toolTipData.image === 'successPicture' ? successPicture : failPicture}
+          textMessage={toolTipData.message}
+          isOpen={toolTipData.status}
+          onClose={closeAllPopups}
         />
 
       </CurrentUserContext.Provider>

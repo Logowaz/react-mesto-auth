@@ -6,6 +6,21 @@
     
 }
 
+.auth__image {
+max-width: 120px;
+max-height: 120px;
+}
+
+.Error__navigate {
+  padding-top: 30px;
+  font-weight: 400;
+  font-size: 14px;
+  text-decoration: none;
+  color: #CCCC;
+  cursor: pointer;
+  
+}
+
 .auth_button {
   font-weight: 400;
   font-size: 18px;

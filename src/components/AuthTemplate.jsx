@@ -25,7 +25,7 @@ function AuthTemplate({name, title, textButton, handleCheckRegister, handleCheck
   
   return (
     <div className="auth__container">
-      <form name={`${name}-form`} className="form__auth" onSubmit={handleSubmit} noValidate>
+      <form name={`${name}-form`} className="form__auth" onSubmit={handleSubmit}>
         <h2 className="form__title-auth">{title}</h2>
         <input
           id="input-email"
