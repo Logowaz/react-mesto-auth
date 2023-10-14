@@ -33,21 +33,8 @@ function App() {
   const [isStatusLoginFail, setIsStatusLoginFail] = useState(false);
   const [loggedIn, setLoggedIn] = useState(false);
   const [userMail, setUserMail] = useState('');
-
-
   const [toolTipData, setToolTipData] = useState({ status: false, message: '', image: '' });
 
-  // function handleCheckStatusLoginSuccess() {
-  //   setToolTipData({ status: true, message: 'Вы успешно зарегистрировались!' });
-  // }
-
-  // function handleCheckStatusLoginFail() {
-  //   setToolTipData({ status: true, message: 'Что-то пошло не так! Попробуйте еще раз.' });
-  // }
-
-
-
- 
   const navigate = useNavigate();
 
   React.useEffect(() => {
